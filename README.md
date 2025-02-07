@@ -20,30 +20,56 @@ Separates the construction of a complex object from its representation, allowing
 Defines an interface for creating an object but allows subclasses to alter the type of objects that will be created.
 
 ```java
-abstract class Product {
-    abstract void use();
+// Product interface
+public interface Product {
+    void use();
 }
 
-class ConcreteProduct extends Product {
-    void use() {
-        System.out.println("Using ConcreteProduct");
+// Concrete Product 1
+public class ConcreteProduct1 implements Product {
+    @Override
+    public void use() {
+        System.out.println("Using ConcreteProduct1");
     }
 }
 
-abstract class Creator {
-    public abstract Product factoryMethod();
-
-    public void someOperation() {
-        Product product = factoryMethod();
-        product.use();
+// Concrete Product 2
+public class ConcreteProduct2 implements Product {
+    @Override
+    public void use() {
+        System.out.println("Using ConcreteProduct2");
+    }
+}
+// Factory interface
+public interface Factory {
+    Product createProduct();
+}
+// Concrete Factory 1
+public class ConcreteFactory1 implements Factory {
+    @Override
+    public Product createProduct() {
+        return new ConcreteProduct1();
     }
 }
 
-class ConcreteCreator extends Creator {
-    public Product factoryMethod() {
-        return new ConcreteProduct();
+// Concrete Factory 2
+public class ConcreteFactory2 implements Factory {
+    @Override
+    public Product createProduct() {
+        return new ConcreteProduct2();
     }
 }
+public class Main {
+    public static void main(String[] args) {
+        Factory factory1 = new ConcreteFactory1();
+        Product product1 = factory1.createProduct();
+        product1.use();
+
+        Factory factory2 = new ConcreteFactory2();
+        Product product2 = factory2.createProduct();
+        product2.use();
+    }
+    }
 ```
 
 ### 4. Prototype
@@ -56,16 +82,34 @@ Specifies the kinds of objects to create using a prototypical instance and creat
 Ensures a class has only one instance and provides a global point of access to it.
 
 ```java
+// Singleton class
 public class Singleton {
+    // Private static instance of the class
     private static Singleton instance;
 
+    // Private constructor to prevent instantiation
     private Singleton() {}
 
-    public static synchronized Singleton getInstance() {
+    // Public method to provide access to the instance
+    public static Singleton getInstance() {
         if (instance == null) {
             instance = new Singleton();
         }
         return instance;
+    }
+
+    public void showMessage() {
+        System.out.println("Hello from the Singleton!");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        // Get the single instance of Singleton
+        Singleton singleton = Singleton.getInstance();
+
+        // Use the singleton instance
+        singleton.showMessage();
     }
 }
 ```
@@ -76,12 +120,114 @@ public class Singleton {
 Converts the interface of a class into another interface clients expect. It allows classes to work together that couldn't otherwise because of incompatible interfaces.
 
 ```java
+//
+// DataLoader class that loads data
+public class DataLoader {
+    public String loadData() {
+        return "Data loaded";
+    }
+}
+
+// DataAnalyzer class that analyzes data
+public class DataAnalyzer {
+    public void analyze(String data) {
+        System.out.println("Analyzing data: " + data);
+    }
+}
+
+// Adapter interface
+public interface DataAdapter {
+    String getData();
+}
+
+// Adapter implementation
+public class DataLoaderAdapter implements DataAdapter {
+    private DataLoader dataLoader;
+
+    public DataLoaderAdapter(DataLoader dataLoader) {
+        this.dataLoader = dataLoader;
+    }
+
+    @Override
+    public String getData() {
+        return dataLoader.loadData();
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        // Create objects
+        DataLoader dataLoader = new DataLoader();
+        DataAdapter adapter = new DataLoaderAdapter(dataLoader);
+        DataAnalyzer dataAnalyzer = new DataAnalyzer();
+
+        // Use the adapter
+        String data = adapter.getData();
+        dataAnalyzer.analyze(data);
+
+    }
+}
 ```
 
 ### 7. Bridge
 Decouples an abstraction from its implementation so that the two can vary independently.
 
 ```java
+// Implementor Interface
+public interface Implementor {
+    void operationImpl();
+}
+
+// Concrete Implementor 1
+public class ConcreteImplementor1 implements Implementor {
+    @Override
+    public void operationImpl() {
+        System.out.println("ConcreteImplementor1 operation");
+    }
+}
+
+// Concrete Implementor 2
+public class ConcreteImplementor2 implements Implementor {
+    @Override
+    public void operationImpl() {
+        System.out.println("ConcreteImplementor2 operation");
+    }
+}
+
+// Abstraction class
+public abstract class Abstraction {
+    protected Implementor implementor;
+
+    protected Abstraction(Implementor implementor) {
+        this.implementor = implementor;
+    }
+
+    public abstract void operation();
+}
+
+// Refined Abstraction
+public class RefinedAbstraction extends Abstraction {
+    public RefinedAbstraction(Implementor implementor) {
+        super(implementor);
+    }
+
+    @Override
+    public void operation() {
+        implementor.operationImpl();
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Implementor implementor1 = new ConcreteImplementor1();
+        Abstraction abstraction1 = new RefinedAbstraction(implementor1);
+        abstraction1.operation();
+
+        Implementor implementor2 = new ConcreteImplementor2();
+        Abstraction abstraction2 = new RefinedAbstraction(implementor2);
+        abstraction2.operation();
+    }
+}
 ```
 
 ### 8. Composite
@@ -100,6 +246,76 @@ Adds additional responsibilities to an object dynamically. It provides a flexibl
 Provides a unified interface to a set of interfaces in a subsystem, making the subsystem easier to use.
 
 ```java
+// PaymentService class
+public class PaymentService {
+    public boolean processPayment(Order order) {
+        System.out.println("Processing payment for order " + order.getId());
+        return true;
+    }
+}
+
+// InventoryService class
+public class InventoryService {
+    public boolean checkStock(Order order) {
+        System.out.println("Checking stock for order " + order.getId());
+        return true;
+    }
+}
+
+// ShippingService class
+public class ShippingService {
+    public void ship(Order order) {
+        System.out.println("Shipping order " + order.getId());
+    }
+}
+
+// Order class
+public class Order {
+    private String id;
+
+    public Order(String id) {
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
+    }
+}
+// OrderFacade class
+public class OrderFacade {
+    private PaymentService paymentService;
+    private InventoryService inventoryService;
+    private ShippingService shippingService;
+
+    public OrderFacade() {
+        this.paymentService = new PaymentService();
+        this.inventoryService = new InventoryService();
+        this.shippingService = new ShippingService();
+    }
+
+    public boolean placeOrder(Order order) {
+        if (paymentService.processPayment(order)) {
+            if (inventoryService.checkStock(order)) {
+                shippingService.ship(order);
+                return true;
+            }
+        }
+        return false;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Order order = new Order("12345");
+        OrderFacade facade = new OrderFacade();
+
+        if (facade.placeOrder(order)) {
+            System.out.println("Order placed successfully.");
+        } else {
+            System.out.println("Failed to place order.");
+        }
+    }
+}
 ```
 
 ### 11. Flyweight
