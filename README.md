@@ -5,10 +5,9 @@ They are categorized into three types: Creational, Structural, and Behavioral pa
 
 ## Creational Patterns
 
-
+### 1. Abstract Factory
 <details>
-  <summary>### 1. Abstract Factory</summary>
-  <p>Provides an interface for creating families of related or dependent objects without specifying their concrete classes.</p>
+  <summary>Provides an interface for creating families of related or dependent objects without specifying their concrete classes.</summary>
 
 ```java
 // Abstract Product A
@@ -105,7 +104,8 @@ public class Main {
 
 
 ### 2. Builder
-Separates the construction of a complex object from its representation, allowing the same construction process to create different representations.
+<details>
+  <summary>Separates the construction of a complex object from its representation, allowing the same construction process to create different representations.</summary>
 
 ```java
 // Product class
@@ -220,9 +220,11 @@ public class Main {
     }
 }
 ```
+</details>
 
 ### 3. Factory Method
-Defines an interface for creating an object but allows subclasses to alter the type of objects that will be created.
+<details>
+  <summary>Defines an interface for creating an object but allows subclasses to alter the type of objects that will be created.</summary>
 
 ```java
 // Product interface
@@ -276,9 +278,12 @@ public class Main {
     }
     }
 ```
+</details>
 
 ### 4. Prototype
-Specifies the kinds of objects to create using a prototypical instance and creates new objects by copying this prototype.
+
+<details>
+  <summary>Specifies the kinds of objects to create using a prototypical instance and creates new objects by copying this prototype.</summary>
 
 ```java
 // Prototype interface
@@ -337,11 +342,13 @@ public class Main {
         System.out.println(clonedPrototype2);
     }
 }
-
 ```
+</details>
 
 ### 5. Singleton
-Ensures a class has only one instance and provides a global point of access to it.
+
+<details>
+  <summary>Ensures a class has only one instance and provides a global point of access to it.</summary>
 
 ```java
 // Singleton class
@@ -375,14 +382,17 @@ public class Main {
     }
 }
 ```
+</details>
 
 ## Structural Patterns
 
 ### 6. Adapter
-Converts the interface of a class into another interface clients expect. It allows classes to work together that couldn't otherwise because of incompatible interfaces.
+
+<details>
+  <summary>Converts the interface of a class into another interface clients expect. It allows classes to work together that couldn't otherwise because of incompatible interfaces.</summary>
 
 ```java
-//
+
 // DataLoader class that loads data
 public class DataLoader {
     public String loadData() {
@@ -430,9 +440,12 @@ public class Main {
     }
 }
 ```
+</details>
 
 ### 7. Bridge
-Decouples an abstraction from its implementation so that the two can vary independently.
+
+<details>
+  <summary>Decouples an abstraction from its implementation so that the two can vary independently.</summary>
 
 ```java
 // Implementor Interface
@@ -491,9 +504,12 @@ public class Main {
     }
 }
 ```
+</details>
 
 ### 8. Composite
-Composes objects into tree structures to represent part-whole hierarchies, allowing clients to treat individual objects and compositions of objects uniformly.
+
+<details>
+  <summary>Composes objects into tree structures to represent part-whole hierarchies, allowing clients to treat individual objects and compositions of objects uniformly.</summary>
 
 ```java
 // Component interface
@@ -557,9 +573,12 @@ public class Main {
     }
 }
 ```
+</details>
 
 ### 9. Decorator
-Adds additional responsibilities to an object dynamically. It provides a flexible alternative to subclassing for extending functionality.
+
+<details>
+  <summary>Adds additional responsibilities to an object dynamically. It provides a flexible alternative to subclassing for extending functionality.</summary>
 
 ```java
 // Component interface
@@ -629,9 +648,12 @@ public class Main {
     }
 }
 ```
+</details>
 
 ### 10. Facade
-Provides a unified interface to a set of interfaces in a subsystem, making the subsystem easier to use.
+
+<details>
+  <summary>Provides a unified interface to a set of interfaces in a subsystem, making the subsystem easier to use.</summary>
 
 ```java
 // PaymentService class
@@ -705,9 +727,12 @@ public class Main {
     }
 }
 ```
+</details>
 
 ### 11. Flyweight
-Uses sharing to support large numbers of fine-grained objects efficiently.
+
+<details>
+  <summary>Uses sharing to support large numbers of fine-grained objects efficiently.</summary>
 
 ```java
 // Flyweight interface
@@ -753,20 +778,27 @@ public class Main {
     }
 }
 ```
+</details>
 
 ### 12. Proxy
-Provides a surrogate or placeholder for another object to control access to it.
+
+<details>
+  <summary>Provides a surrogate or placeholder for another object to control access to it.</summary>
 
 ```java
 ```
+</details>
 
 ## Behavioral Patterns
 
 ### 13. Chain of Responsibility
-Passes a request along a chain of handlers. Each handler either processes the request or passes it to the next handler in the chain.
+
+<details>
+  <summary>Passes a request along a chain of handlers. Each handler either processes the request or passes it to the next handler in the chain.</summary>
 
 ```java
 ```
+</details>
 
 ### 14. Command
 Encapsulates a request as an object, thereby allowing for parameterization of clients with queues, requests, and operations.
