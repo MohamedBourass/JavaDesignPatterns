@@ -5,8 +5,10 @@ They are categorized into three types: Creational, Structural, and Behavioral pa
 
 ## Creational Patterns
 
-### 1. Abstract Factory
-Provides an interface for creating families of related or dependent objects without specifying their concrete classes.
+
+<details>
+  <summary>### 1. Abstract Factory</summary>
+  <p>Provides an interface for creating families of related or dependent objects without specifying their concrete classes.</p>
 
 ```java
 // Abstract Product A
@@ -97,6 +99,10 @@ public class Main {
     }
 }
 ```
+</details>
+
+
+
 
 ### 2. Builder
 Separates the construction of a complex object from its representation, allowing the same construction process to create different representations.
